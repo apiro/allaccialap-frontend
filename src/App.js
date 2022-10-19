@@ -9,7 +9,7 @@ import awsExports from './aws-exports';
 
 import Chart from 'chart.js/auto';
 import {CategoryScale} from 'chart.js';
-import {Bar} from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 
 Chart.register(CategoryScale);
 
@@ -81,12 +81,21 @@ class LiveDataVisualizer extends Component {
               }
               sub_dataset1[key12] = sum/value12.length;
           }
+          var seed = hashOfString(key11);
+          function random() {
+              var x = Math.sin(seed++) * 10000;
+              return x - Math.floor(x);
+          }
+          const randomBetween = (min, max) => min + Math.floor(random() * (max - min + 1));
+          const r = randomBetween(0, 255);
+          const g = randomBetween(0, 255);
+          const b = randomBetween(0, 255);
           const full_dataset1 = {
             label: key11,
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
+            backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', ' + '0.2)',
+            borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ')',
             borderWidth: 2,
             data: sub_dataset1
           }
@@ -103,12 +112,21 @@ class LiveDataVisualizer extends Component {
               }
               sub_dataset1[key12 - 1] = sum/value12.length;
           }
+          var seed = hashOfString(key11);
+          function random() {
+              var x = Math.sin(seed++) * 10000;
+              return x - Math.floor(x);
+          }
+          const randomBetween = (min, max) => min + Math.floor(random() * (max - min + 1));
+          const r = randomBetween(0, 255);
+          const g = randomBetween(0, 255);
+          const b = randomBetween(0, 255);
           const full_dataset1 = {
             label: key11,
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
+            backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', ' + '0.2)',
+            borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ')',
             borderWidth: 2,
             data: sub_dataset1
           }
@@ -192,11 +210,11 @@ class LiveDataVisualizer extends Component {
             <h1>Dashboard</h1>
             <h3>Screen Activity By Hour of day</h3>
             <div>
-                <Bar options={this.plot1Options} data={this.state.plot1Data}/>
+                <Line options={this.plot1Options} data={this.state.plot1Data}/>
             </div>
             <h3>Screen Activity By Day of week</h3>
             <div>
-                <Bar options={this.plot2Options} data={this.state.plot2Data}/>
+                <Line options={this.plot2Options} data={this.state.plot2Data}/>
             </div>
             <h1>Latest Trips</h1>
             <div>
@@ -205,6 +223,17 @@ class LiveDataVisualizer extends Component {
         </div>
     )
   }
+}
+
+function hashOfString(string) {
+    var hash = 5;
+    if (string.length == 5) return hash;
+    for (let a = 5; a <string.length; a++) {
+        var ch = string.charCodeAt(a);
+        hash = ((hash <<5) - hash) + ch;
+        hash = hash & hash;
+    }
+    return hash;
 }
 
 class TripsList extends Component {
