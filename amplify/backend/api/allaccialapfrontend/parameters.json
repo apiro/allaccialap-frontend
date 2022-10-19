@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "allaccialapfrontend",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authallaccialapfrontend1d51649e",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

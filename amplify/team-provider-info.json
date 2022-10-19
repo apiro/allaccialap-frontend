@@ -1,0 +1,29 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-allaccialapfrontend-prod-115837-authRole",
+      "UnauthRoleArn": "arn:aws:iam::413213916531:role/amplify-allaccialapfrontend-prod-115837-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::413213916531:role/amplify-allaccialapfrontend-prod-115837-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-allaccialapfrontend-prod-115837-deployment",
+      "UnauthRoleName": "amplify-allaccialapfrontend-prod-115837-unauthRole",
+      "StackName": "amplify-allaccialapfrontend-prod-115837",
+      "StackId": "arn:aws:cloudformation:us-east-1:413213916531:stack/amplify-allaccialapfrontend-prod-115837/fdd8cdd0-4f9c-11ed-b4df-120a289fc231",
+      "AmplifyAppId": "d6fbvrmoosni4"
+    },
+    "categories": {
+      "auth": {
+        "allaccialapfrontend1d51649e": {}
+      },
+      "api": {
+        "allaccialapfrontend": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d6fbvrmoosni4",
+          "type": "cicd"
+        }
+      }
+    }
+  }
+}
