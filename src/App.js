@@ -28,6 +28,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.loadNewData()
     this.interval = setInterval(() => this.loadNewData(), 1000);
   }
 
