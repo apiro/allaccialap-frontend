@@ -20,11 +20,11 @@ class LiveDataVisualizer extends Component {
   state = {
     trips: [],
     plot1Data: {
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        labels: ["0am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "13pm", "14pm", "15pm", "16pm", "17pm", "18pm", "19pm", "20pm", "21pm", "22pm", "23pm"],
         datasets: []
     },
     plot2Data: {
-        labels: [0, 1, 2, 3, 4, 5, 6],
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         datasets: []
     }
   }
@@ -101,7 +101,7 @@ class LiveDataVisualizer extends Component {
               for (let j = 0; j < value12.length; j += 1) {
                 sum+=value12[j];
               }
-              sub_dataset1[key12] = sum/value12.length;
+              sub_dataset1[key12 - 1] = sum/value12.length;
           }
           const full_dataset1 = {
             label: key11,
@@ -116,10 +116,10 @@ class LiveDataVisualizer extends Component {
       }
 
       const plot1LabelsPointer = this.state.plot1Data.labels;
-      plot1LabelsPointer[0] = 0;
+      plot1LabelsPointer[0] = "0am";
 
       const plot2LabelsPointer = this.state.plot2Data.labels;
-      plot2LabelsPointer[0] = 0;
+      plot2LabelsPointer[0] = "Monday";
 
       this.setState({
         plot1Data: Object.assign({}, this.state.plot1Data, {
@@ -138,17 +138,65 @@ class LiveDataVisualizer extends Component {
       this.setState({ trips: fetchedTrips });
   }
 
+  constructor(props){
+    super(props);
+    this.plot1Options = {
+        responsive: true,
+        scales : {
+            x: {
+              title: {
+                display: true,
+                text: 'Hour of day'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Average number of screen unlocks'
+              }
+            }
+        },
+        plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+      };
+    this.plot2Options = {
+        responsive: true,
+        scales : {
+            x: {
+              title: {
+                display: true,
+                text: 'Day of week'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Average number of screen unlocks'
+              }
+            }
+        },
+        plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+      };
+  }
+
   render(){
     return(
         <div>
             <h1>Dashboard</h1>
-            <h3>By Hour of day</h3>
+            <h3>Screen Activity By Hour of day</h3>
             <div>
-                <Bar data={this.state.plot1Data}/>
+                <Bar options={this.plot1Options} data={this.state.plot1Data}/>
             </div>
-            <h3>By Day of week</h3>
+            <h3>Screen Activity By Day of week</h3>
             <div>
-                <Bar data={this.state.plot2Data}/>
+                <Bar options={this.plot2Options} data={this.state.plot2Data}/>
             </div>
             <h1>Latest Trips</h1>
             <div>
