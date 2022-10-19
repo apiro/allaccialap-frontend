@@ -9,7 +9,7 @@ import awsExports from './aws-exports';
 
 import Chart from 'chart.js/auto';
 import {CategoryScale} from 'chart.js';
-import {Line} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 
 Chart.register(CategoryScale);
 
@@ -22,13 +22,17 @@ class LiveDataVisualizer extends Component {
     plot1Data: {
         labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
         datasets: []
+    },
+    plot2Data: {
+        labels: [0, 1, 2, 3, 4, 5, 6],
+        datasets: []
     }
   }
 
   componentDidMount() {
     this.timer = setInterval(
       () => this.fetch(),
-      1000
+      5000
     )
   }
 
@@ -88,15 +92,46 @@ class LiveDataVisualizer extends Component {
           }
           hours_datasets_parsed.push(full_dataset1);
       }
-      console.log(hours_datasets_parsed);
+
+      const days_datasets_parsed = [];
+      for (const [key11, value11] of Object.entries(day_datasets)) {
+          const sub_dataset1 = [0, 0, 0, 0, 0, 0, 0];
+          for (const [key12, value12] of Object.entries(value11)) {
+              var sum = 0;
+              for (let j = 0; j < value12.length; j += 1) {
+                sum+=value12[j];
+              }
+              sub_dataset1[key12] = sum/value12.length;
+          }
+          const full_dataset1 = {
+            label: key11,
+            fill: false,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 2,
+            data: sub_dataset1
+          }
+          days_datasets_parsed.push(full_dataset1);
+      }
 
       const plot1LabelsPointer = this.state.plot1Data.labels;
       plot1LabelsPointer[0] = 0;
+
+      const plot2LabelsPointer = this.state.plot2Data.labels;
+      plot2LabelsPointer[0] = 0;
 
       this.setState({
         plot1Data: Object.assign({}, this.state.plot1Data, {
              labels: plot1LabelsPointer,
              datasets: hours_datasets_parsed
+        })
+      });
+
+      this.setState({
+        plot2Data: Object.assign({}, this.state.plot2Data, {
+             labels: plot2LabelsPointer,
+             datasets: days_datasets_parsed
         })
       });
 
@@ -109,7 +144,11 @@ class LiveDataVisualizer extends Component {
             <h1>Dashboard</h1>
             <h3>By Hour of day</h3>
             <div>
-                <Line data={this.state.plot1Data}/>
+                <Bar data={this.state.plot1Data}/>
+            </div>
+            <h3>By Day of week</h3>
+            <div>
+                <Bar data={this.state.plot2Data}/>
             </div>
             <h1>Latest Trips</h1>
             <div>
