@@ -1,0 +1,14 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+type Trip @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  username: String
+  appId: String
+  deviceAddress: String
+  deviceName: String
+  startTimestamp: String
+  maxKmsHour: String
+  numberOfUnlocks: String
+  sumKms: String
+}

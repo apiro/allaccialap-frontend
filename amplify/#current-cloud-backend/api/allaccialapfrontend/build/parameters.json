@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "allaccialapfrontend",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authallaccialapfrontend1d51649e",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-allaccialapfrontend-prod-115837-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/431a5a3d205182b380cbfee47533ea49f25d4c62"
+}
