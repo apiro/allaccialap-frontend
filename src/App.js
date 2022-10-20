@@ -236,7 +236,6 @@ class LiveDataVisualizer extends Component {
           }
           dimensions_datasets_parsed.push(full_dataset1);
       }
-      console.log(dimensions_datasets_parsed);
 
       const plot1OptionsPointer = this.state.plot1Options;
       plot1OptionsPointer["responsive"] = false;
