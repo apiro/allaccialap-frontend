@@ -9,7 +9,7 @@ import awsExports from './aws-exports';
 
 import Chart from 'chart.js/auto';
 import {CategoryScale} from 'chart.js';
-import {Line} from 'react-chartjs-2';
+import {Line, Bubble} from 'react-chartjs-2';
 
 Chart.register(CategoryScale);
 
@@ -26,7 +26,76 @@ class LiveDataVisualizer extends Component {
     plot2Data: {
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         datasets: []
-    }
+    },
+    plot3Data: {
+        datasets: []
+    },
+    plot1Options: {
+        responsive: true,
+        scales : {
+            x: {
+              title: {
+                display: true,
+                text: 'Hour of day'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Average number of screen unlocks'
+              }
+            }
+        },
+        plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+    },
+    plot2Options: {
+        responsive: true,
+        scales : {
+            x: {
+              title: {
+                display: true,
+                text: 'Day of week'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Average number of screen unlocks'
+              }
+            }
+        },
+        plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+    },
+    plot3Options: {
+        responsive: true,
+        scales : {
+            x: {
+              title: {
+                display: true,
+                text: 'Number of unlocks'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Speed (Kms/Hour)'
+              }
+            }
+        },
+        plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+    },
   }
 
   componentDidMount() {
@@ -47,6 +116,7 @@ class LiveDataVisualizer extends Component {
 
       var hours_datasets = {};
       var day_datasets = {};
+      var dimensions_datasets = {};
       for (let i=0; i < fetchedTrips.length; i++){
         const trip = fetchedTrips[i];
         const date = new Date(trip["startTimestamp"]);
@@ -60,6 +130,10 @@ class LiveDataVisualizer extends Component {
         if (day_datasets[username] === undefined){
             day_datasets[username] = {};
         }
+        if (dimensions_datasets[username] === undefined){
+            dimensions_datasets[username] = {numberOfUnlocks: [], maxKmsHour: [], sumKms: []};
+        }
+
         if (hours_datasets[username][hour] === undefined){
             hours_datasets[username][hour] = [];
         }
@@ -69,6 +143,9 @@ class LiveDataVisualizer extends Component {
 
         hours_datasets[username][hour].push(parseInt(trip["numberOfUnlocks"]));
         day_datasets[username][day].push(parseInt(trip["numberOfUnlocks"]));
+        dimensions_datasets[username]["numberOfUnlocks"].push(parseInt(trip["numberOfUnlocks"]));
+        dimensions_datasets[username]["maxKmsHour"].push(parseInt(trip["maxKmsHour"]));
+        dimensions_datasets[username]["sumKms"].push(parseInt(trip["sumKms"]));
       }
 
       const hours_datasets_parsed = [];
@@ -133,75 +210,67 @@ class LiveDataVisualizer extends Component {
           days_datasets_parsed.push(full_dataset1);
       }
 
-      const plot1LabelsPointer = this.state.plot1Data.labels;
-      plot1LabelsPointer[0] = "0am";
+      const dimensions_datasets_parsed = [];
+      for (const [key11, value11] of Object.entries(dimensions_datasets)) {
+          var dataset1 = [];
+          for (let j = 0; j < value11["numberOfUnlocks"].length; j += 1) {
+            dataset1.push({x: value11["numberOfUnlocks"][j], y: value11["maxKmsHour"][j], r: value11["sumKms"][j] + 6})
+          }
+          var seed = hashOfString(key11);
+          function random() {
+              var x = Math.sin(seed++) * 10000;
+              return x - Math.floor(x);
+          }
+          const randomBetween = (min, max) => min + Math.floor(random() * (max - min + 1));
+          const r = randomBetween(0, 255);
+          const g = randomBetween(0, 255);
+          const b = randomBetween(0, 255);
+          const full_dataset1 = {
+            label: key11,
+            data: dataset1,
+            fill: false,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', ' + '0.2)',
+            borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ')',
+            borderWidth: 2,
+          }
+          dimensions_datasets_parsed.push(full_dataset1);
+      }
+      console.log(dimensions_datasets_parsed);
 
-      const plot2LabelsPointer = this.state.plot2Data.labels;
-      plot2LabelsPointer[0] = "Monday";
+      const plot1OptionsPointer = this.state.plot1Options;
+      plot1OptionsPointer["responsive"] = false;
+      plot1OptionsPointer["responsive"] = true;
+
+      const plot2OptionsPointer = this.state.plot2Options;
+      plot2OptionsPointer["responsive"] = false;
+      plot2OptionsPointer["responsive"] = true;
+
+      const plot3OptionsPointer = this.state.plot3Options;
+      plot3OptionsPointer["responsive"] = false;
+      plot3OptionsPointer["responsive"] = true;
 
       this.setState({
         plot1Data: Object.assign({}, this.state.plot1Data, {
-             labels: plot1LabelsPointer,
+             labels: ["0am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "13pm", "14pm", "15pm", "16pm", "17pm", "18pm", "19pm", "20pm", "21pm", "22pm", "23pm"],
              datasets: hours_datasets_parsed
         })
       });
 
       this.setState({
         plot2Data: Object.assign({}, this.state.plot2Data, {
-             labels: plot2LabelsPointer,
+             labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
              datasets: days_datasets_parsed
         })
       });
 
-      this.setState({ trips: fetchedTrips });
-  }
+      this.setState({
+        plot3Data: Object.assign({}, this.state.plot3Data, {
+             datasets: dimensions_datasets_parsed
+        })
+      });
 
-  constructor(props){
-    super(props);
-    this.plot1Options = {
-        responsive: true,
-        scales : {
-            x: {
-              title: {
-                display: true,
-                text: 'Hour of day'
-              }
-            },
-            y: {
-              title: {
-                display: true,
-                text: 'Average number of screen unlocks'
-              }
-            }
-        },
-        plugins: {
-            legend: {
-              position: 'top',
-            },
-          },
-      };
-    this.plot2Options = {
-        responsive: true,
-        scales : {
-            x: {
-              title: {
-                display: true,
-                text: 'Day of week'
-              }
-            },
-            y: {
-              title: {
-                display: true,
-                text: 'Average number of screen unlocks'
-              }
-            }
-        },
-        plugins: {
-            legend: {
-              position: 'top',
-            },
-          },
-      };
+      this.setState({ trips: fetchedTrips });
   }
 
   render(){
@@ -215,6 +284,10 @@ class LiveDataVisualizer extends Component {
             <h3>Screen Activity By Day of week</h3>
             <div>
                 <Line options={this.plot2Options} data={this.state.plot2Data}/>
+            </div>
+            <h3>Screen Activity vs Trip Statistics</h3>
+            <div>
+                <Bubble options={this.state.plot3Options} data={this.state.plot3Data}/>
             </div>
             <h1>Latest Trips</h1>
             <div>
