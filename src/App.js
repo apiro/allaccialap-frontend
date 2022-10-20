@@ -143,9 +143,9 @@ class LiveDataVisualizer extends Component {
 
         hours_datasets[username][hour].push(parseInt(trip["numberOfUnlocks"]));
         day_datasets[username][day].push(parseInt(trip["numberOfUnlocks"]));
-        dimensions_datasets[username]["numberOfUnlocks"].push(parseInt(trip["numberOfUnlocks"]));
-        dimensions_datasets[username]["maxKmsHour"].push(parseInt(trip["maxKmsHour"]));
-        dimensions_datasets[username]["sumKms"].push(parseInt(trip["sumKms"]));
+        dimensions_datasets[username]["numberOfUnlocks"].push(parseFloat(trip["numberOfUnlocks"]));
+        dimensions_datasets[username]["maxKmsHour"].push(parseFloat(trip["maxKmsHour"]));
+        dimensions_datasets[username]["sumKms"].push(parseFloat(trip["sumKms"]));
       }
 
       const hours_datasets_parsed = [];
@@ -214,7 +214,7 @@ class LiveDataVisualizer extends Component {
       for (const [key11, value11] of Object.entries(dimensions_datasets)) {
           var dataset1 = [];
           for (let j = 0; j < value11["numberOfUnlocks"].length; j += 1) {
-            dataset1.push({x: value11["numberOfUnlocks"][j], y: value11["maxKmsHour"][j], r: value11["sumKms"][j] + 6})
+            dataset1.push({x: value11["numberOfUnlocks"][j], y: value11["maxKmsHour"][j], r: value11["sumKms"][j] + 2})
           }
           var seed = hashOfString(key11);
           function random() {
