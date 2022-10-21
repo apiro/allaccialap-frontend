@@ -299,7 +299,7 @@ class TripsList extends Component {
             <tbody className="mdc-data-table__content">
             {this.props.trips.map(trip =>
               <tr key={trip.id} className="mdc-data-table__row">
-                <th className="mdc-data-table__cell" scope="row">{trip.id}</th>
+                <th className="mdc-data-table__cell" scope="row">{trip.tripId}</th>
                 <th className="mdc-data-table__cell" scope="row">{trip.username}</th>
                 <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.numberOfUnlocks}</td>
                 <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.maxKmsHour}</td>
