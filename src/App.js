@@ -257,11 +257,11 @@ class LiveDataVisualizer extends Component {
             <h1>Dashboard</h1>
             <h3>Screen Activity By Hour of day</h3>
             <div>
-                <Line options={this.plot1Options} data={this.state.plot1Data}/>
+                <Line options={this.state.plot1Options} data={this.state.plot1Data}/>
             </div>
             <h3>Screen Activity By Day of week</h3>
             <div>
-                <Line options={this.plot2Options} data={this.state.plot2Data}/>
+                <Line options={this.state.plot2Options} data={this.state.plot2Data}/>
             </div>
             <h3>Screen Activity vs Trip Statistics</h3>
             <div>
