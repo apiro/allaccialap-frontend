@@ -96,6 +96,8 @@ class LiveDataVisualizer extends Component {
             },
           },
     },
+    rgbs : {
+    }
   }
 
   componentDidMount() {
@@ -123,6 +125,10 @@ class LiveDataVisualizer extends Component {
         const username = trip["username"];
         const hour = date.getHours();
         const day = date.getDay();
+
+        if (this.state.rgbs[username] === undefined) {
+            this.state.rgbs[username] = random_rgba();
+        }
 
         if (hours_datasets[username] === undefined){
             hours_datasets[username] = {};
@@ -158,21 +164,12 @@ class LiveDataVisualizer extends Component {
               }
               sub_dataset1[key12] = sum/value12.length;
           }
-          var seed = hashOfString(key11);
-          function random() {
-              var x = Math.sin(seed++) * 10000;
-              return x - Math.floor(x);
-          }
-          const randomBetween = (min, max) => min + Math.floor(random() * (max - min + 1));
-          const r = randomBetween(0, 255);
-          const g = randomBetween(0, 255);
-          const b = randomBetween(0, 255);
           const full_dataset1 = {
             label: key11,
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', ' + '0.2)',
-            borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ')',
+            backgroundColor: 'rgba(' + this.state.rgbs[key11] + ', ' + '0.2)',
+            borderColor: 'rgb(' + this.state.rgbs[key11] + ')',
             borderWidth: 2,
             data: sub_dataset1
           }
@@ -189,21 +186,12 @@ class LiveDataVisualizer extends Component {
               }
               sub_dataset1[key12 - 1] = sum/value12.length;
           }
-          var seed = hashOfString(key11);
-          function random() {
-              var x = Math.sin(seed++) * 10000;
-              return x - Math.floor(x);
-          }
-          const randomBetween = (min, max) => min + Math.floor(random() * (max - min + 1));
-          const r = randomBetween(0, 255);
-          const g = randomBetween(0, 255);
-          const b = randomBetween(0, 255);
           const full_dataset1 = {
             label: key11,
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', ' + '0.2)',
-            borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ')',
+            backgroundColor: 'rgba(' + this.state.rgbs[key11] + ', ' + '0.2)',
+            borderColor: 'rgb(' + this.state.rgbs[key11] + ')',
             borderWidth: 2,
             data: sub_dataset1
           }
@@ -216,22 +204,13 @@ class LiveDataVisualizer extends Component {
           for (let j = 0; j < value11["numberOfUnlocks"].length; j += 1) {
             dataset1.push({x: value11["numberOfUnlocks"][j], y: value11["maxKmsHour"][j], r: value11["sumKms"][j] + 2})
           }
-          var seed = hashOfString(key11);
-          function random() {
-              var x = Math.sin(seed++) * 10000;
-              return x - Math.floor(x);
-          }
-          const randomBetween = (min, max) => min + Math.floor(random() * (max - min + 1));
-          const r = randomBetween(0, 255);
-          const g = randomBetween(0, 255);
-          const b = randomBetween(0, 255);
           const full_dataset1 = {
             label: key11,
             data: dataset1,
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', ' + '0.2)',
-            borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ')',
+            backgroundColor: 'rgba(' + this.state.rgbs[key11] + ', ' + '0.2)',
+            borderColor: 'rgb(' + this.state.rgbs[key11] + ')',
             borderWidth: 2,
           }
           dimensions_datasets_parsed.push(full_dataset1);
@@ -297,15 +276,9 @@ class LiveDataVisualizer extends Component {
   }
 }
 
-function hashOfString(string) {
-    var hash = 5;
-    if (string.length == 5) return hash;
-    for (let a = 5; a <string.length; a++) {
-        var ch = string.charCodeAt(a);
-        hash = ((hash <<5) - hash) + ch;
-        hash = hash & hash;
-    }
-    return hash;
+function random_rgba() {
+  var o = Math.round, r = Math.random, s = 255;
+  return o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s);
 }
 
 class TripsList extends Component {
