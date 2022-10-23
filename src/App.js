@@ -9,7 +9,7 @@ import awsExports from './aws-exports';
 
 import Chart from 'chart.js/auto';
 import {CategoryScale} from 'chart.js';
-import {Line, Bubble} from 'react-chartjs-2';
+import {Line, Bubble, Bar} from 'react-chartjs-2';
 
 Chart.register(CategoryScale);
 
@@ -86,7 +86,7 @@ class LiveDataVisualizer extends Component {
             y: {
               title: {
                 display: true,
-                text: 'Avg Kms Hour'
+                text: 'Average Kms/Hour'
               }
             }
         },
@@ -257,11 +257,11 @@ class LiveDataVisualizer extends Component {
             <h1>Dashboard</h1>
             <h3>Screen Activity By Hour of day</h3>
             <div>
-                <Line options={this.state.plot1Options} data={this.state.plot1Data}/>
+                <Bar options={this.state.plot1Options} data={this.state.plot1Data}/>
             </div>
             <h3>Screen Activity By Day of week</h3>
             <div>
-                <Line options={this.state.plot2Options} data={this.state.plot2Data}/>
+                <Bar options={this.state.plot2Options} data={this.state.plot2Data}/>
             </div>
             <h3>Screen Activity vs Trip Statistics</h3>
             <div>
