@@ -6,7 +6,7 @@ type Trip {
   deviceAddress: String
   deviceName: String
   startTimestamp: String
-  maxKmsHour: String
+  avgKmsHour: String
   numberOfUnlocks: String
   sumKms: String
   createdAt: AWSDateTime!
@@ -175,7 +175,7 @@ input ModelTripFilterInput {
   deviceAddress: ModelStringInput
   deviceName: ModelStringInput
   startTimestamp: ModelStringInput
-  maxKmsHour: ModelStringInput
+  avgKmsHour: ModelStringInput
   numberOfUnlocks: ModelStringInput
   sumKms: ModelStringInput
   and: [ModelTripFilterInput]
@@ -194,7 +194,7 @@ input ModelTripConditionInput {
   deviceAddress: ModelStringInput
   deviceName: ModelStringInput
   startTimestamp: ModelStringInput
-  maxKmsHour: ModelStringInput
+  avgKmsHour: ModelStringInput
   numberOfUnlocks: ModelStringInput
   sumKms: ModelStringInput
   and: [ModelTripConditionInput]
@@ -209,7 +209,7 @@ input CreateTripInput {
   deviceAddress: String
   deviceName: String
   startTimestamp: String
-  maxKmsHour: String
+  avgKmsHour: String
   numberOfUnlocks: String
   sumKms: String
 }
@@ -221,7 +221,7 @@ input UpdateTripInput {
   deviceAddress: String
   deviceName: String
   startTimestamp: String
-  maxKmsHour: String
+  avgKmsHour: String
   numberOfUnlocks: String
   sumKms: String
 }
@@ -243,7 +243,7 @@ input ModelSubscriptionTripFilterInput {
   deviceAddress: ModelSubscriptionStringInput
   deviceName: ModelSubscriptionStringInput
   startTimestamp: ModelSubscriptionStringInput
-  maxKmsHour: ModelSubscriptionStringInput
+  avgKmsHour: ModelSubscriptionStringInput
   numberOfUnlocks: ModelSubscriptionStringInput
   sumKms: ModelSubscriptionStringInput
   and: [ModelSubscriptionTripFilterInput]

@@ -10,7 +10,7 @@ export const onCreateTrip = /* GraphQL */ `
       deviceAddress
       deviceName
       startTimestamp
-      maxKmsHour
+      avgKmsHour
       numberOfUnlocks
       sumKms
       createdAt
@@ -27,7 +27,7 @@ export const onUpdateTrip = /* GraphQL */ `
       deviceAddress
       deviceName
       startTimestamp
-      maxKmsHour
+      avgKmsHour
       numberOfUnlocks
       sumKms
       createdAt
@@ -44,7 +44,7 @@ export const onDeleteTrip = /* GraphQL */ `
       deviceAddress
       deviceName
       startTimestamp
-      maxKmsHour
+      avgKmsHour
       numberOfUnlocks
       sumKms
       createdAt

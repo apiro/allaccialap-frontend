@@ -86,7 +86,7 @@ class LiveDataVisualizer extends Component {
             y: {
               title: {
                 display: true,
-                text: 'Speed (Kms/Hour)'
+                text: 'Avg Kms Hour'
               }
             }
         },
@@ -184,7 +184,7 @@ class LiveDataVisualizer extends Component {
               for (let j = 0; j < value12.length; j += 1) {
                 sum+=value12[j];
               }
-              sub_dataset1[key12 - 1] = sum/value12.length;
+              sub_dataset1[key12] = sum/value12.length;
           }
           const full_dataset1 = {
             label: key11,
@@ -292,14 +292,14 @@ class TripsList extends Component {
                 <th className="mdc-data-table__header-cell" role="columnheader" scope="col">TripId</th>
                 <th className="mdc-data-table__header-cell" role="columnheader" scope="col">Username</th>
                 <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Number of Unlocks</th>
-                <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Avg Kms Hour (g)</th>
+                <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Avg Kms Hour</th>
                 <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Sum Kms</th>
               </tr>
             </thead>
             <tbody className="mdc-data-table__content">
             {this.props.trips.map(trip =>
               <tr key={trip.id} className="mdc-data-table__row">
-                <th className="mdc-data-table__cell" scope="row">{trip.tripId}</th>
+                <th className="mdc-data-table__cell" scope="row">{trip.id}</th>
                 <th className="mdc-data-table__cell" scope="row">{trip.username}</th>
                 <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.numberOfUnlocks}</td>
                 <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.avgKmsHour}</td>

@@ -40,7 +40,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-allaccialapfrontend-prod-115837-deployment/amplify-cfn-templates/auth/allaccialapfrontend1d51649e-cloudformation-template.json",
         "logicalId": "authallaccialapfrontend1d51649e"
       },
-      "lastPushTimeStamp": "2022-10-19T12:18:31.231Z",
+      "lastPushTimeStamp": "2022-10-23T14:56:51.859Z",
       "output": {
         "UserPoolId": "us-east-1_dN70jVDY4",
         "AppClientIDWeb": "jvuu1mmn5p90i7bofhptrjelq",
@@ -83,8 +83,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-allaccialapfrontend-prod-115837-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiallaccialapfrontend"
       },
-      "lastPushTimeStamp": "2022-10-19T12:18:34.129Z",
-      "lastPushDirHash": "V6AABmuGKTUBrX0Ll6RMSdXziJo="
+      "lastPushTimeStamp": "2022-10-23T14:56:54.451Z",
+      "lastPushDirHash": "ucBvlj5L3oR4scAkLycwGgFFxMc="
     }
   },
   "hosting": {

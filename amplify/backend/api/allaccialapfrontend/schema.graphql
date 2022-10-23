@@ -8,7 +8,7 @@ type Trip @model @auth(rules: [{ allow: private }]) {
   deviceAddress: String
   deviceName: String
   startTimestamp: String
-  maxKmsHour: String
+  avgKmsHour: String
   numberOfUnlocks: String
   sumKms: String
 }
