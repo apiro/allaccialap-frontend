@@ -137,7 +137,7 @@ class LiveDataVisualizer extends Component {
             day_datasets[username] = {};
         }
         if (dimensions_datasets[username] === undefined){
-            dimensions_datasets[username] = {numberOfUnlocks: [], maxKmsHour: [], sumKms: []};
+            dimensions_datasets[username] = {numberOfUnlocks: [], avgKmsHour: [], sumKms: []};
         }
 
         if (hours_datasets[username][hour] === undefined){
@@ -150,7 +150,7 @@ class LiveDataVisualizer extends Component {
         hours_datasets[username][hour].push(parseInt(trip["numberOfUnlocks"]));
         day_datasets[username][day].push(parseInt(trip["numberOfUnlocks"]));
         dimensions_datasets[username]["numberOfUnlocks"].push(parseFloat(trip["numberOfUnlocks"]));
-        dimensions_datasets[username]["maxKmsHour"].push(parseFloat(trip["maxKmsHour"]));
+        dimensions_datasets[username]["avgKmsHour"].push(parseFloat(trip["avgKmsHour"]));
         dimensions_datasets[username]["sumKms"].push(parseFloat(trip["sumKms"]));
       }
 
@@ -202,7 +202,7 @@ class LiveDataVisualizer extends Component {
       for (const [key11, value11] of Object.entries(dimensions_datasets)) {
           var dataset1 = [];
           for (let j = 0; j < value11["numberOfUnlocks"].length; j += 1) {
-            dataset1.push({x: value11["numberOfUnlocks"][j], y: value11["maxKmsHour"][j], r: value11["sumKms"][j] + 2})
+            dataset1.push({x: value11["numberOfUnlocks"][j], y: value11["avgKmsHour"][j], r: value11["sumKms"][j] + 2})
           }
           const full_dataset1 = {
             label: key11,
@@ -292,7 +292,7 @@ class TripsList extends Component {
                 <th className="mdc-data-table__header-cell" role="columnheader" scope="col">TripId</th>
                 <th className="mdc-data-table__header-cell" role="columnheader" scope="col">Username</th>
                 <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Number of Unlocks</th>
-                <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Max Kms Hour (g)</th>
+                <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Avg Kms Hour (g)</th>
                 <th className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Sum Kms</th>
               </tr>
             </thead>
@@ -302,7 +302,7 @@ class TripsList extends Component {
                 <th className="mdc-data-table__cell" scope="row">{trip.tripId}</th>
                 <th className="mdc-data-table__cell" scope="row">{trip.username}</th>
                 <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.numberOfUnlocks}</td>
-                <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.maxKmsHour}</td>
+                <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.avgKmsHour}</td>
                 <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{trip.sumKms}</td>
               </tr>
             )}
