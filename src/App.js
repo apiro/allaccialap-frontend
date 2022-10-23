@@ -184,7 +184,11 @@ class LiveDataVisualizer extends Component {
               for (let j = 0; j < value12.length; j += 1) {
                 sum+=value12[j];
               }
-              sub_dataset1[key12] = sum/value12.length;
+              var day = key12 - 1;
+              if (day == -1) {
+                day = 6
+              }
+              sub_dataset1[day] = sum/value12.length;
           }
           const full_dataset1 = {
             label: key11,
